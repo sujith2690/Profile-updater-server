@@ -14,6 +14,7 @@ export const signUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
         req.body.password = hashedPass;
+        req.body.role = "user";
         const newUser = new UserModel(req.body);
         const user = await newUser.save();
         const token = jwt.sign(
@@ -101,7 +102,8 @@ export const signAdmin = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
         req.body.password = hashedPass;
-        const newUser = new UserModel(req.body);
+        req.body.role = "admin";
+        const newUser = new AdminModel(req.body);
         const user = await newUser.save();
         const token = jwt.sign(
             {
@@ -118,4 +120,3 @@ export const signAdmin = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-
