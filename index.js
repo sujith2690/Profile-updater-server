@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connection from './dataBase.js';
 import authRoute from "./routes/authRoute.js"
+import profileRoute from "./routes/profileRoute.js"
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.listen(5000, () => console.log('App running on port 5000'))
 
 
 app.use('/auth', authRoute)
+app.use('/profile', profileRoute)
 
 
 
